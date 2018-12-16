@@ -1,0 +1,35 @@
+#!/bin/bash
+num=$1
+
+i=0;
+inside=0;
+
+while [ $i -lt $num ]
+do
+  x=( $(awk -v seed=$RANDOM 'BEGIN{srand(seed); print rand()}') )
+  y=( $(awk -v seed=$RANDOM 'BEGIN{srand(seed); print rand()}') ) 
+  
+  xsq=$(echo "$x * $x" | bc)
+  ysq=$(echo "$y * $y" | bc)
+  
+  calc=$(echo "$xsq + $ysq" | bc)
+
+  dist=$(echo "sqrt($calc)" | bc)
+
+  comp=1.0
+
+  if [ $(echo "$dist < $comp" | bc -l) == 1 ]; then
+    ((inside++))
+  fi
+  
+  ((i++))
+done
+
+echo $inside
+
+four=4.0
+
+pest=$(echo "$inside / $num" | bc -l)
+pest=$(echo "$four * $pest" | bc -l)
+
+echo $pest
