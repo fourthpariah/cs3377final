@@ -4,7 +4,8 @@
 #include <time.h>
 
 int 
-main(int argc, char *argv[]) {
+main(int argc, char *argv[]) 
+{
 
   extern char *optarg;
   extern int optind, optopt;
@@ -43,24 +44,25 @@ main(int argc, char *argv[]) {
   int attempt = get_random_number() * 100;
   int attempt2 = get_random_number() * 100;
   
-  while (attempt == attempt2) {
+  while (attempt == attempt2) 
+  {
     attempt = get_random_number() * 100;
   }
-  
-  //nanosleep((const struct timespec[]){{0, 500000000L}}, NULL);
   
   //printf("Random num = %f\n", get_random_number());
   //printf("Attempt = %i\n", attempt);
   
   finalize_mytool();
   
-  if (attempt <= pcnt) {
+  if (attempt <= pcnt) 
+  {
     if (vflag)
       printf("Success\n");
       
     exit(0);
   }
-  else if (attempt > pcnt) {
+  else if (attempt > pcnt) 
+  {
     if (vflag)
       printf("Failure\n");
       

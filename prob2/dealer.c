@@ -6,8 +6,8 @@
 #include <time.h>
 
 int 
-main(int argc, char *argv[]) {
-
+main(int argc, char *argv[]) 
+{
   extern char *optarg;
   extern int optind, optopt;
   
@@ -56,14 +56,14 @@ main(int argc, char *argv[]) {
     case '?':
       fprintf(stderr, "%s: Unknown input\n", argv[0]);
       exit(1);
-  }
+    }
   
   if (!pflag || !nflag)
   {
     fprintf(stderr, "%s: Requires -p AND -n.\n", argv[0]);
     exit(1);
   }
-  else if ((pcnt > 100) || (pcnt == 0))
+  else if ((pcnt > 100))
   {
     fprintf(stderr, "%s: Invalid percentage value.\n", argv[0]);
     exit(1);
@@ -73,11 +73,6 @@ main(int argc, char *argv[]) {
     fprintf(stderr, "%s: Invalid number_of_trials value.\n", argv[0]);
     exit(1);
   }
-  
-  //printf ("pcnt = %d, vflag = %d, numt = %d\n", pcnt, vflag, numt);
-
-  //for (index = optind; index < argc; index++)
-    //printf ("Non-option argument %s\n", argv[index]);
     
   int result, wins, losses;
   wins = 0;
@@ -85,7 +80,8 @@ main(int argc, char *argv[]) {
   int childs;
   childs = 0;
   
-  for(index = 0; index < numt;index++) {
+  for(index = 0; index < numt;index++) 
+  {
     pid = fork();
       
     if(pid == 0) 
@@ -99,6 +95,7 @@ main(int argc, char *argv[]) {
       if (vflag)
         printf("PID %i returned \n", pid); 
 
+      // I would have wanted to implement dup2 to redirect the stdout of hand but I don't have any time left
       pid = wait(&result);   
       if (WEXITSTATUS(result) == 0)
         wins++;

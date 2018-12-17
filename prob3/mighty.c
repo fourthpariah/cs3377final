@@ -27,12 +27,14 @@ int main(int argc, char *argv[])
   {
     newfile = fopen(argv[2], "a");
     
+    // closing the write end of pipe
     close(fd[1]);
     
     while ( (n = read(fd[0], buff, size)) > 0)
     {
     } 
     
+    // closing the read end of pipe
     close(fd[0]);
   
     fprintf(stdout, buff);
@@ -40,5 +42,7 @@ int main(int argc, char *argv[])
     fclose(newfile);
   
   }
+  
+  printf("\n");
 
 }

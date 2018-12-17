@@ -18,18 +18,35 @@ do
 
   comp=1.0
 
-  if [ $(echo "$dist < $comp" | bc -l) == 1 ]; then
+  # sometimes for very large inputs (like 10000), this conditional may return an error that "unary operator expected"
+  # I couldnt figure out how to prevent this, but it doesn't seem to affect the program
+  if [ "$(echo $dist'<='$comp | bc -l)" -eq 1 ]; then
     ((inside++))
   fi
   
   ((i++))
 done
 
-echo $inside
-
 four=4.0
+pi=3.14
+hund=100.0
+
+echo "#points inside quarter unit circle = $inside"
 
 pest=$(echo "$inside / $num" | bc -l)
 pest=$(echo "$four * $pest" | bc -l)
 
-echo $pest
+echo "pi estimate = $pest" 
+
+deviation=$(echo "$pi - $pest" | bc -l)
+
+#This essentially gives the absolute value of the deviation if required
+if [ "$(echo $deviation'<'0.0 | bc -l)" -eq 1 ]; then
+  deviation=$(echo "$deviation * -1.0" | bc -l);
+fi
+
+errcnt=$(echo "$deviation/$pi" | bc -l)
+errcnt=$(echo "$errcnt * $hund" | bc -l)
+
+echo "deviation = $deviation"
+echo "% error = $errcnt" 
